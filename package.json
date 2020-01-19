@@ -8,7 +8,7 @@
   },
   "scripts": {
     "build": "tsc -p .",
-    "start": "node lib/server.js",
+    "start": "node lib/app.js",
     "test": "jest"
   },
   "repository": {
