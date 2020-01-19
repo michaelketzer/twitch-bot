@@ -1,0 +1,43 @@
+{
+  "name": "discord-chat",
+  "version": "1.0.0",
+  "description": "A handler to interact with the twitch chat",
+  "main": "lib/app.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "build": "tsc -p .",
+    "start": "node lib/server.js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://bitbucket.org/griefco-de/discord-chat/src"
+  },
+  "keywords": [
+    "twitch",
+    "chat",
+    "bot"
+  ],
+  "author": "GriefCode",
+  "license": "ISC",
+  "dependencies": {
+    "@sentry/node": "^5.9.0",
+    "@types/dotenv": "^8.2.0",
+    "@types/jest": "^24.0.23",
+    "@types/moment": "^2.13.0",
+    "@types/node-fetch": "^2.5.4",
+    "@types/ws": "^6.0.3",
+    "dotenv": "^8.2.0",
+    "jest": "^24.9.0",
+    "moment": "^2.24.0",
+    "node-fetch": "^2.6.0",
+    "ts-jest": "^24.2.0",
+    "twitch-bot": "^1.3.5",
+    "ws": "^7.2.0"
+  },
+  "devDependencies": {
+    "typescript": "^3.7.2"
+  }
+}
