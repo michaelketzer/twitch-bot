@@ -1,25 +1,33 @@
-//@ts-ignore
-import TwitchBot from 'twitch-bot';
+import {Client} from 'tmi.js';
 import * as Sentry from '@sentry/node';
 import WebSocket from 'ws';
 import dotenv from 'dotenv';
 dotenv.config();
 import {handleFeedVoteMessage, handleFeedVoteMessageFromWS} from "./feed";
 import {handleShokzFightMessage} from "./shokzFight";
-import {saveSubscription, saveChatMessage} from "./api";
+import {saveChatMessage} from "./api";
 import {handleBetMessageFromWS, handleBetMessages} from "./betting";
 import { handleCustomCommand } from './customCommands';
 const {WS_URI='', TWITCH_USER='', TWITCH_OAUTH='', SENTRY_DSN=null} = process.env;
+
+const client = Client({
+	options: { debug: true },
+	connection: {
+		reconnect: true,
+		secure: true
+	},
+	identity: {
+		username: TWITCH_USER,
+		password: TWITCH_OAUTH,
+	},
+	channels: [ '#shokztv' ]
+});
+client.connect();
 
 if(SENTRY_DSN) {
     Sentry.init({ dsn: SENTRY_DSN });
 }
 
-const Bot = new TwitchBot({
-    username: TWITCH_USER,
-    oauth: TWITCH_OAUTH,
-    channels: ['shokztv', 'griefcode']
-});
 
 let ws: null | WebSocket = null;
 const connect = (): void => {
@@ -27,7 +35,9 @@ const connect = (): void => {
     ws.on('open', function () {
         console.log('Backend connection established');
     });
-    ws.on('error', function () {
+    ws.on('error', function (error) {
+
+        console.log(error);
         console.log('Backend connection error. Reconnecting...');
     });
     ws.on('close', function () {
@@ -40,7 +50,7 @@ const connect = (): void => {
             handleBetMessageFromWS(type, data, populateWebsocketMessage, populateToChat);
             handleFeedVoteMessageFromWS(type, data, populateWebsocketMessage, populateToChat);
             if (type === 'broadcast') {
-                Bot.say(props.message);
+                client.say('#shokztv', props.message);
             }
         } catch (error) {
         }
@@ -49,89 +59,68 @@ const connect = (): void => {
 
 connect();
 
-Bot.on('error', (err: string): void => console.error(err));
-
-interface ChatMessage {
-    username: string;
-    badge_info: string;
-    badges?: {
-        broadcaster: boolean;
-        moderator: boolean;
-        subscriber: number;
-        'sub-gifter': number;
-    };
-    color: string;
-    display_name: string;
-    emotes: null | string;
-    flags: null | string;
-    id: string;
-    mod: boolean;
-    room_id: number;
-    subscriber: boolean;
-    tmi_sent_ts: number;
-    turbo: boolean;
-    user_id: number;
-    user_type: 'mod' | 'staff';
-    channel: string;
-    message: string;
+/**
+{
+  'badge-info': { subscriber: '21' },
+  badges: { moderator: '1', subscriber: '18', 'bits-leader': '1' },
+  color: '#00FF7F',
+  'display-name': 'GriefCode',
+  emotes: null,
+  flags: null,
+  id: '2abaa013-de0c-4a8e-af5c-e48f00128e90',
+  mod: true,
+  'room-id': '63202811',
+  subscriber: true,
+  'tmi-sent-ts': '1581105025599',
+  turbo: false,
+  'user-id': '103933973',
+  'user-type': 'mod',
+  'emotes-raw': null,
+  'badge-info-raw': 'subscriber/21',
+  'badges-raw': 'moderator/1,subscriber/18,bits-leader/1',
+  username: 'griefcode',
+  'message-type': 'chat'
 }
 
-Bot.on('message', (chatter: ChatMessage): void => {
-    const data = {username: chatter.username, message: chatter.message};
-
-    if (ws && ws.readyState === ws.OPEN) {
-        ws.send(JSON.stringify({data, type: 'message'}));
-    }
-
-    saveChatMessage(chatter.username, chatter.message);
-    handleBetMessages(chatter.username, chatter.message, populateToChat, populateWebsocketMessage);
-    handleFeedVoteMessage(chatter.username, chatter.message, populateToChat, populateWebsocketMessage);
-    const isMod = chatter.mod || (chatter.badges ? chatter.badges.broadcaster : false);
-    handleShokzFightMessage(chatter.display_name, chatter.message, isMod, populateToChat);
-    handleCustomCommand(chatter.display_name, chatter.message, populateToChat);
-});
-
-interface SubEvent {
-    "badges": {
-        "broadcaster": number;
-        "staff": number;
-        "turbo": number;
-    };
-    "channel": string;
-    "color": string;
-    "display_name": string;
-    "emotes": null | string;
-    "id": string;
-    "login": string;
-    "message": string | null;
-    "mod": boolean;
-    "msg_id": string;
-    "msg_param_months": number;
-    "msg_param_sub_plan": "Prime",
-    "msg_param_sub_plan_name": "Prime",
-    "room_id": number;
-    "subscriber": number;
-    "system_msg": string;
-    "tmi_sent_ts": string;
-    "turbo": boolean;
-    "user_id": number;
-    "user_type": string;
+{
+  'badge-info': { subscriber: '32' },
+  badges: { broadcaster: '1', subscriber: '30', 'sub-gifter': '25' },
+  color: '#0000FF',
+  'display-name': 'shokzTV',
+  emotes: null,
+  flags: null,
+  id: 'add162b3-2678-41c1-80bb-9f39d9ff84f7',
+  mod: false,
+  'room-id': '63202811',
+  subscriber: true,
+  'tmi-sent-ts': '1581106293563',
+  turbo: false,
+  'user-id': '63202811',
+  'user-type': null,
+  'emotes-raw': null,
+  'badge-info-raw': 'subscriber/32',
+  'badges-raw': 'broadcaster/1,subscriber/30,sub-gifter/25',
+  username: 'shokztv',
+  'message-type': 'chat'
 }
-
-Bot.on('subscription', (event: SubEvent): void => {
-    const data = {
-        username: event.login,
-        message: event.message,
-        months: event.msg_param_months,
-        subPlan: event.msg_param_sub_plan,
-        subPlanName: event.msg_param_sub_plan_name
-    };
+ */
+client.on('message', (channel, tags, message, self) => {
+    console.log(tags);
+	if(self) return;
+    const username = tags.username || tags["display-name"]?.toLocaleLowerCase();
+    if(!username) return;
 
     if (ws && ws.readyState === ws.OPEN) {
-        ws.send(JSON.stringify({data, type: 'subscription'}));
+        ws.send(JSON.stringify({data: {message, username}, type: 'message'}));
     }
 
-    saveSubscription(data);
+    const mod = !!(!!tags.mod || (tags.badges && tags.badges.broadcaster === '1'));
+
+    saveChatMessage(username, message);
+    handleBetMessages(username, message, populateToChat, populateWebsocketMessage);
+    handleFeedVoteMessage(username, message, populateToChat, populateWebsocketMessage);
+    handleShokzFightMessage(username, message, mod, populateToChat);
+    handleCustomCommand(username, message, populateToChat);
 });
 
 function populateWebsocketMessage(data: any): void {
@@ -144,5 +133,5 @@ function populateWebsocketMessage(data: any): void {
 }
 
 function populateToChat(message: string): void {
-    Bot.say(message);
+    client.say('#shokztv', message);
 }
