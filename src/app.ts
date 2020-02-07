@@ -29,20 +29,38 @@ if(SENTRY_DSN) {
 }
 
 
+let pingTimeout: null | NodeJS.Timeout = null;;
 let ws: null | WebSocket = null;
+
+function heartbeat() {
+    pingTimeout && clearTimeout(pingTimeout);
+
+    // Use `WebSocket#terminate()`, which immediately destroys the connection,
+    // instead of `WebSocket#close()`, which waits for the close timer.
+    // Delay should be equal to the interval at which your server
+    // sends out pings plus a conservative assumption of the latency.
+    pingTimeout = setTimeout(() => {
+        ws && ws.terminate();
+    }, 30000 + 1000);
+}
+
 const connect = (): void => {
+
+
     ws = new WebSocket(WS_URI);
     ws.on('open', function () {
         console.log('Backend connection established');
+        heartbeat();
     });
+    ws.on('ping', heartbeat);
     ws.on('error', function (error) {
-
         console.log(error);
         console.log('Backend connection error. Reconnecting...');
     });
     ws.on('close', function () {
         console.error('Backend connection closed. Trying reconnecting...');
         setTimeout(connect, 2500);
+        pingTimeout && clearTimeout(pingTimeout);
     });
     ws.on('message', (data: string): void => {
         try {
