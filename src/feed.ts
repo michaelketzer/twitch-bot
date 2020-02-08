@@ -70,10 +70,9 @@ function updateVote(populateWebsocketMessage: (data: any) => void): void {
     });
 }
 
-export function handleFeedVoteMessageFromWS(type: string, data: any, populateWebsocketMessage: (data: any) => void, populateToChat: (data: string) => void): void {
+export function handleFeedVoteMessageFromWS(type: string, props: any, populateWebsocketMessage: (data: any) => void, populateToChat: (data: string) => void): void {
     try {
-        const {message} = JSON.parse(data);
-        if(type === 'feedvoting' && message === 'init') {
+        if(type === 'feedvoting' && props.message === 'init') {
             populateWebsocketMessage({
                 type: 'feedvoting',
                 data: {
@@ -85,7 +84,7 @@ export function handleFeedVoteMessageFromWS(type: string, data: any, populateWeb
                     voters: [...voters],
                 }
             });
-        } else if(message === 'startfromgsi') {
+        } else if(props.message === 'startfromgsi') {
             startFeedVoting(populateWebsocketMessage, populateToChat)
         }
     } catch(error) {

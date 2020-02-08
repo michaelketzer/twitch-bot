@@ -8,6 +8,7 @@ import {handleShokzFightMessage} from "./shokzFight";
 import {saveChatMessage} from "./api";
 import {handleBetMessageFromWS, handleBetMessages} from "./betting";
 import { handleCustomCommand } from './customCommands';
+import BackendTransport from 'backend-transport';
 const {WS_URI='', TWITCH_USER='', TWITCH_OAUTH='', SENTRY_DSN=null} = process.env;
 
 const client = Client({
@@ -28,55 +29,20 @@ if(SENTRY_DSN) {
     Sentry.init({ dsn: SENTRY_DSN });
 }
 
-
-let pingTimeout: null | NodeJS.Timeout = null;;
-let ws: null | WebSocket = null;
-
-function heartbeat() {
-    pingTimeout && clearTimeout(pingTimeout);
-
-    // Use `WebSocket#terminate()`, which immediately destroys the connection,
-    // instead of `WebSocket#close()`, which waits for the close timer.
-    // Delay should be equal to the interval at which your server
-    // sends out pings plus a conservative assumption of the latency.
-    pingTimeout = setTimeout(() => {
-        ws && ws.terminate();
-    }, 30000 + 1000);
+interface InternalMessage {
+    type: string;
+    message: string;
 }
 
-const connect = (): void => {
+const onMessage = (props: object) => {
+    handleBetMessageFromWS((props as InternalMessage).type, props, populateWebsocketMessage, populateToChat);
+    handleFeedVoteMessageFromWS((props as InternalMessage).type, props, populateWebsocketMessage, populateToChat);
+    if ((props as InternalMessage).type === 'broadcast') {
+        client.say('#shokztv', (props as InternalMessage).message);
+    }
+}
 
-
-    ws = new WebSocket(WS_URI);
-    ws.on('open', function () {
-        console.log('Backend connection established');
-        heartbeat();
-    });
-    ws.on('ping', heartbeat);
-    ws.on('error', function (error) {
-        console.log(error);
-        console.log('Backend connection error. Reconnecting...');
-    });
-    ws.on('close', function () {
-        console.error('Backend connection closed. Trying reconnecting...');
-        setTimeout(connect, 2500);
-        pingTimeout && clearTimeout(pingTimeout);
-    });
-    ws.on('message', (data: string): void => {
-        try {
-            const {type, ...props} = JSON.parse(data);
-            handleBetMessageFromWS(type, data, populateWebsocketMessage, populateToChat);
-            handleFeedVoteMessageFromWS(type, data, populateWebsocketMessage, populateToChat);
-            if (type === 'broadcast') {
-                client.say('#shokztv', props.message);
-            }
-        } catch (error) {
-        }
-    });
-};
-
-connect();
-
+const ws = new BackendTransport({url: WS_URI, messageCallback: onMessage})
 /**
 {
   'badge-info': { subscriber: '21' },
@@ -123,14 +89,11 @@ connect();
 }
  */
 client.on('message', (channel, tags, message, self) => {
-    console.log(tags);
 	if(self) return;
     const username = tags.username || tags["display-name"]?.toLocaleLowerCase();
     if(!username) return;
 
-    if (ws && ws.readyState === ws.OPEN) {
-        ws.send(JSON.stringify({data: {message, username}, type: 'message'}));
-    }
+    ws.send(JSON.stringify({data: {message, username}, type: 'message'}));
 
     const mod = !!(!!tags.mod || (tags.badges && tags.badges.broadcaster === '1'));
 
@@ -142,12 +105,8 @@ client.on('message', (channel, tags, message, self) => {
 });
 
 function populateWebsocketMessage(data: any): void {
-    if (ws && ws.readyState === ws.OPEN) {
-        console.info('[populateWebsocketMessage]', JSON.stringify(data));
-        ws.send(JSON.stringify(data));
-    } else {
-        console.error('Could not popuplate message, as ws is not in readyState', JSON.stringify(data));
-    }
+    console.info('[populateWebsocketMessage]', JSON.stringify(data));
+    ws.send(JSON.stringify(data));
 }
 
 function populateToChat(message: string): void {
