@@ -115,10 +115,9 @@ function updateBet(populateWebsocketMessage: (data: any) => void): void {
 }
 
 
-export function handleBetMessageFromWS(type: string, data: any, populateWebsocketMessage: (data: any) => void, populateToChat: (data: string) => void): void {
+export function handleBetMessageFromWS(type: string, props: any, populateWebsocketMessage: (data: any) => void, populateToChat: (data: string) => void): void {
     try {
-        const {message} = JSON.parse(data);
-        if(type === 'betting' && message === 'init') {
+        if(type === 'betting' && props.message === 'init') {
             populateWebsocketMessage({
                 type: 'betting',
                 data: {
@@ -130,10 +129,9 @@ export function handleBetMessageFromWS(type: string, data: any, populateWebsocke
                     betters: [...betters],
                 }
             });
-        } else if(type === 'betting' && message === 'winnerfromcgsi' && status === STATUS.RUNNING) {
-            const {winner} = JSON.parse(data);
-            console.log('received winner from cgsi', winner);
-            setWinner(winner, populateToChat, populateWebsocketMessage);
+        } else if(type === 'betting' && props.message === 'winnerfromcgsi' && status === STATUS.RUNNING) {
+            console.log('received winner from cgsi', props.winner);
+            setWinner(props.winner, populateToChat, populateWebsocketMessage);
         }
     } catch(error) {
         throw new Error(error);
