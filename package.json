@@ -25,7 +25,7 @@
   "dependencies": {
     "@sentry/node": "^5.9.0",
     "@types/dotenv": "^8.2.0",
-    "@types/jest": "^24.0.23",
+    "@types/jest": "^26.0.15",
     "@types/moment": "^2.13.0",
     "@types/node-fetch": "^2.5.4",
     "@types/tmi.js": "^1.4.0",
