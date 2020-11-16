@@ -23,7 +23,7 @@
   "author": "GriefCode",
   "license": "ISC",
   "dependencies": {
-    "@sentry/node": "^5.9.0",
+    "@sentry/node": "^5.27.4",
     "@types/dotenv": "^8.2.0",
     "@types/jest": "^24.0.23",
     "@types/moment": "^2.13.0",
