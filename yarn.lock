@@ -671,10 +671,10 @@ babel-preset-jest@^24.9.0:
     "@babel/plugin-syntax-object-rest-spread" "^7.0.0"
     babel-plugin-jest-hoist "^24.9.0"
 
-backend-transport@1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/backend-transport/-/backend-transport-1.0.3.tgz#1210b77bb67325f10b2c7f833cfe03b6a2471656"
-  integrity sha512-oKdGByPMdvtzEOMgiNbnZRMIrXss1Ovs9YTRw3l6QTN5l/+9QXpRI2oT0YJMPHy7CkehvdIfufZ1hmRVqUrz4g==
+backend-transport@1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/backend-transport/-/backend-transport-1.0.4.tgz#4ccf00fcd1134bc316215d8ff9e357c62ef0cee8"
+  integrity sha512-2p57a9Tu7LoUNF2ABmZkie8GFSSyYHDhAa4jiTZbiCZMD7wPJuAn/KXuomEwn6hfdmgkwRRsFTprDfIBZ+7o3g==
   dependencies:
     "@types/websocket" "^1.0.0"
     websocket "^1.0.31"
@@ -3317,10 +3317,10 @@ typedarray-to-buffer@^3.1.5:
   dependencies:
     is-typedarray "^1.0.0"
 
-typescript@^3.7.2:
-  version "3.7.5"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.7.5.tgz#0692e21f65fd4108b9330238aac11dd2e177a1ae"
-  integrity sha512-/P5lkRXkWHNAbcJIiHPfRoKqyd7bsyCma1hZNUGfn20qm64T6ZBlrzprymeu918H+mB/0rIg2gGK/BXkhhYgBw==
+typescript@^4.0.5:
+  version "4.0.5"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.0.5.tgz#ae9dddfd1069f1cb5beb3ef3b2170dd7c1332389"
+  integrity sha512-ywmr/VrTVCmNTJ6iV2LwIrfG1P+lv6luD8sUJs+2eI9NLGigaN+nUQc13iHqisq7bra9lnmUSYqbJvegraBOPQ==
 
 union-value@^1.0.0:
   version "1.0.1"
