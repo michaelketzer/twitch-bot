@@ -671,10 +671,10 @@ babel-preset-jest@^24.9.0:
     "@babel/plugin-syntax-object-rest-spread" "^7.0.0"
     babel-plugin-jest-hoist "^24.9.0"
 
-backend-transport@1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/backend-transport/-/backend-transport-1.0.3.tgz#1210b77bb67325f10b2c7f833cfe03b6a2471656"
-  integrity sha512-oKdGByPMdvtzEOMgiNbnZRMIrXss1Ovs9YTRw3l6QTN5l/+9QXpRI2oT0YJMPHy7CkehvdIfufZ1hmRVqUrz4g==
+backend-transport@1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/backend-transport/-/backend-transport-1.0.4.tgz#4ccf00fcd1134bc316215d8ff9e357c62ef0cee8"
+  integrity sha512-2p57a9Tu7LoUNF2ABmZkie8GFSSyYHDhAa4jiTZbiCZMD7wPJuAn/KXuomEwn6hfdmgkwRRsFTprDfIBZ+7o3g==
   dependencies:
     "@types/websocket" "^1.0.0"
     websocket "^1.0.31"
@@ -2371,10 +2371,10 @@ mkdirp@0.x, mkdirp@^0.5.1:
   dependencies:
     minimist "0.0.8"
 
-moment@*, moment@^2.24.0:
-  version "2.24.0"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
-  integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
+moment@*, moment@^2.29.1:
+  version "2.29.1"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.1.tgz#b2be769fa31940be9eeea6469c075e35006fa3d3"
+  integrity sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==
 
 ms@2.0.0:
   version "2.0.0"
