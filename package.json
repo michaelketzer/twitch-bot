@@ -28,7 +28,7 @@
     "@types/jest": "^24.0.23",
     "@types/moment": "^2.13.0",
     "@types/node-fetch": "^2.5.4",
-    "@types/tmi.js": "^1.4.0",
+    "@types/tmi.js": "^1.4.2",
     "@types/ws": "^6.0.3",
     "backend-transport": "1.0.4",
     "dotenv": "^8.2.0",
