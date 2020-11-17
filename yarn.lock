@@ -671,10 +671,10 @@ babel-preset-jest@^24.9.0:
     "@babel/plugin-syntax-object-rest-spread" "^7.0.0"
     babel-plugin-jest-hoist "^24.9.0"
 
-backend-transport@1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/backend-transport/-/backend-transport-1.0.3.tgz#1210b77bb67325f10b2c7f833cfe03b6a2471656"
-  integrity sha512-oKdGByPMdvtzEOMgiNbnZRMIrXss1Ovs9YTRw3l6QTN5l/+9QXpRI2oT0YJMPHy7CkehvdIfufZ1hmRVqUrz4g==
+backend-transport@1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/backend-transport/-/backend-transport-1.0.4.tgz#4ccf00fcd1134bc316215d8ff9e357c62ef0cee8"
+  integrity sha512-2p57a9Tu7LoUNF2ABmZkie8GFSSyYHDhAa4jiTZbiCZMD7wPJuAn/KXuomEwn6hfdmgkwRRsFTprDfIBZ+7o3g==
   dependencies:
     "@types/websocket" "^1.0.0"
     websocket "^1.0.31"
@@ -2423,10 +2423,10 @@ nice-try@^1.0.4:
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
   integrity sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==
 
-node-fetch@^2.6.0:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.0.tgz#e633456386d4aa55863f676a7ab0daa8fdecb0fd"
-  integrity sha512-8dG4H5ujfvFiqDmVu9fQ5bOHUC15JMjMY/Zumv26oOvvVJjM67KF8koCWIabKQ1GJIa9r2mMZscBq/TbdOcmNA==
+node-fetch@^2.6.1:
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.1.tgz#045bd323631f76ed2e2b55573394416b639a0052"
+  integrity sha512-V4aYg89jEoVRxRb2fJdAg8FHvI7cEyYdVAh94HH0UIK8oJxUfkjlDQN9RbMx+bEjP7+ggMiFRprSti032Oipxw==
 
 node-int64@^0.4.0:
   version "0.4.0"
