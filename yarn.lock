@@ -457,10 +457,10 @@
   resolved "https://registry.yarnpkg.com/@types/stack-utils/-/stack-utils-1.0.1.tgz#0a851d3bd96498fa25c33ab7278ed3bd65f06c3e"
   integrity sha512-l42BggppR6zLmpfU6fq9HEa2oGPEI8yrSPL3GITjfRInppYFahObbIQOQK3UGxEnyQpltZLaPe75046NOZQikw==
 
-"@types/tmi.js@^1.4.0":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/@types/tmi.js/-/tmi.js-1.4.0.tgz#a5491fe21d04da328b890d8666ffa98f341a45cd"
-  integrity sha512-Xs+7GV/qNQWarPgmlRyJLvSr7VrXZs/HiXXA2GKBvlmB1JIP+iYyC8UEZaKGllX3NZhZ2lDtOtVJunhe9m6MTQ==
+"@types/tmi.js@^1.4.2":
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/@types/tmi.js/-/tmi.js-1.4.2.tgz#0eeecb2665d60ccfe7cec9755c905d3022456975"
+  integrity sha512-EqIctOMPIleqMAnXeCPe7QYt4/kwKQJWxgi6/PbXxVL+Z1w+Ow64QuAahgCDt82XPtnn8fmjJ77XKsiFiLvooQ==
 
 "@types/websocket@^1.0.0":
   version "1.0.0"
@@ -671,10 +671,10 @@ babel-preset-jest@^24.9.0:
     "@babel/plugin-syntax-object-rest-spread" "^7.0.0"
     babel-plugin-jest-hoist "^24.9.0"
 
-backend-transport@1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/backend-transport/-/backend-transport-1.0.3.tgz#1210b77bb67325f10b2c7f833cfe03b6a2471656"
-  integrity sha512-oKdGByPMdvtzEOMgiNbnZRMIrXss1Ovs9YTRw3l6QTN5l/+9QXpRI2oT0YJMPHy7CkehvdIfufZ1hmRVqUrz4g==
+backend-transport@1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/backend-transport/-/backend-transport-1.0.4.tgz#4ccf00fcd1134bc316215d8ff9e357c62ef0cee8"
+  integrity sha512-2p57a9Tu7LoUNF2ABmZkie8GFSSyYHDhAa4jiTZbiCZMD7wPJuAn/KXuomEwn6hfdmgkwRRsFTprDfIBZ+7o3g==
   dependencies:
     "@types/websocket" "^1.0.0"
     websocket "^1.0.31"
