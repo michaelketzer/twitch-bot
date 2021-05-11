@@ -671,10 +671,10 @@ babel-preset-jest@^24.9.0:
     "@babel/plugin-syntax-object-rest-spread" "^7.0.0"
     babel-plugin-jest-hoist "^24.9.0"
 
-backend-transport@1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/backend-transport/-/backend-transport-1.0.3.tgz#1210b77bb67325f10b2c7f833cfe03b6a2471656"
-  integrity sha512-oKdGByPMdvtzEOMgiNbnZRMIrXss1Ovs9YTRw3l6QTN5l/+9QXpRI2oT0YJMPHy7CkehvdIfufZ1hmRVqUrz4g==
+backend-transport@1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/backend-transport/-/backend-transport-1.0.4.tgz#4ccf00fcd1134bc316215d8ff9e357c62ef0cee8"
+  integrity sha512-2p57a9Tu7LoUNF2ABmZkie8GFSSyYHDhAa4jiTZbiCZMD7wPJuAn/KXuomEwn6hfdmgkwRRsFTprDfIBZ+7o3g==
   dependencies:
     "@types/websocket" "^1.0.0"
     websocket "^1.0.31"
@@ -2255,9 +2255,9 @@ lodash.sortby@^4.7.0:
   integrity sha1-7dFMgk4sycHgsKG0K7UhBRakJDg=
 
 lodash@^4.17.13, lodash@^4.17.15:
-  version "4.17.15"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
-  integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
+  version "4.17.21"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
+  integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
 
 loose-envify@^1.0.0:
   version "1.4.0"
